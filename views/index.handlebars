@@ -1,0 +1,55 @@
+<h1>Eat Da Burger</h1>
+
+<h3>Enter a Burger</h3>
+
+<ul>
+	{{#each burgerItems}}
+
+	<li>
+		<p>Burger: {{this.name}}</p>
+
+		<button type="button" class="devourBtn" data-id={{ this.idburger }}>Devour</button>
+
+
+	</li>
+	{{/each}}
+</ul>
+
+
+
+<ul>
+	{{#each burgerItems}}
+	{{#if this.devoured.isTrue}}
+	<li>
+		<p>Burger: {{this.name}}</p>
+	</li>
+
+	{{/if}}
+	{{/each}}
+</ul>
+
+<form action="/" method="POST">
+	<textarea type="text" name="name"></textarea>
+
+	<button type="submit">Submit</button>
+</form>
+
+
+
+<script type="text/javascript">
+
+	$('.devourBtn').on('click', function () {
+
+		const burgerId = $(this).attr('data-id');
+
+		$.ajax({
+			method: "PUT",
+			url: "/" + burgerId
+		}).then(data => {
+			alert(data)
+			location.reload();
+		})
+
+	});
+
+</script>
